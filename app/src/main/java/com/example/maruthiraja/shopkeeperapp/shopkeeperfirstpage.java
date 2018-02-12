@@ -2,6 +2,7 @@ package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +34,8 @@ public class shopkeeperfirstpage extends AppCompatActivity
     private MaterialSearchView searchView;
     private RecyclerView itemlist;
     private DatabaseReference mdatabase;
+    boolean doubleBackToExitPressedOnce = false;
+
 
 
     @Override
@@ -139,9 +143,26 @@ public class shopkeeperfirstpage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+               // Toast.makeText(this, "finish all activity", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
