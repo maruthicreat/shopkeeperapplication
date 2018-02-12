@@ -129,9 +129,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
         {
             System.out.println("image"+image);
             ImageView imageView = (ImageView) mview.findViewById(R.id.item_image);
-            Picasso.with(mview.getContext())
-                    .load(image)
-                    .into(imageView);
+            Picasso.with(mview.getContext()).load(image).into(imageView);
         }
     }
 

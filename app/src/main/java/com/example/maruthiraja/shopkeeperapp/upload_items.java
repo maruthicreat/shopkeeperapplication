@@ -82,6 +82,10 @@ public class upload_items extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    mprograss.dismiss();
+                    Toast.makeText(upload_items.this, "fields are empty ...!!!", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
