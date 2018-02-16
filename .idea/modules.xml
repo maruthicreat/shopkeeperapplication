@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\shopkeeperapplication\app\app.iml" filepath="C:\Users\MCA\AndroidStudioProjects\shopkeeperapplication\app\app.iml" />
+      <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\shopkeeperapplication\app\app.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\shopkeeperapplication\app\app.iml" />
       <module fileurl="file://C:\Users\maruthi raja\AndroidStudioProjects\shopkeeperapplication\shopkeeperapp.iml" filepath="C:\Users\maruthi raja\AndroidStudioProjects\shopkeeperapplication\shopkeeperapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopkeeperapplication.iml" filepath="$PROJECT_DIR$/shopkeeperapplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/shopkeeperapplication.iml" filepath="$PROJECT_DIR$/.idea/shopkeeperapplication.iml" />
+      <module fileurl="file://C:\Users\maruthiraja\AndroidStudioProjects\shopkeeperapplication\shopkeeperapplication.iml" filepath="C:\Users\maruthiraja\AndroidStudioProjects\shopkeeperapplication\shopkeeperapplication.iml" />
       <module fileurl="file://C:\Users\MCA\AndroidStudioProjects\shopkeeperapplication\shopkeeperapplication.iml" filepath="C:\Users\MCA\AndroidStudioProjects\shopkeeperapplication\shopkeeperapplication.iml" />
     </modules>
   </component>

@@ -56,13 +56,13 @@ public class shopkeeperfirstpage extends AppCompatActivity
        // searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(shopkeeperfirstpage.this,upload_items.class));
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,6 +98,12 @@ public class shopkeeperfirstpage extends AppCompatActivity
         super.onStart();
 
     }
+
+
+    public void floatclick(View view){
+        startActivity(new Intent(shopkeeperfirstpage.this,upload_items.class));
+    }
+
 
     public static class ItemHolder extends RecyclerView.ViewHolder{
 
