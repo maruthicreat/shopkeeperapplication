@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart Shopping Shopkeeper</string>
+    <string name="app_name">Smart Shopkeeper</string>
     <string name="customer">Customer</string>
     <string name="shopkeeper">shopkeeper</string>
     <string name="cussignup">customersignup</string>

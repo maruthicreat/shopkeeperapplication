@@ -32,6 +32,7 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
     DatabaseReference mDatabase;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
+    String lat,log;
     Button mapButton;
     TextView location;
     EditText repass,emailId,password,shopName,shopType;
@@ -85,8 +86,8 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 String placename = String.format("%s", place.getName());
-                String latitude = String.valueOf(place.getLatLng().latitude);
-                String longitude = String.valueOf(place.getLatLng().longitude);
+                lat = String.valueOf(place.getLatLng().latitude);
+                log = String.valueOf(place.getLatLng().longitude);
                 String address = String.format("%s", place.getAddress());
                 /*stBuilder.append("Name: ");
                 stBuilder.append(placename);
@@ -140,6 +141,8 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
                             c_uid.child("user_id").setValue("2");
                             c_uid.child("mail_id").setValue(emailid);
                             c_uid.child("Address").setValue(stBuilder.toString());
+                            c_uid.child("latitude").setValue(lat);
+                            c_uid.child("longitude").setValue(log);
                             c_uid.child("password").setValue(passwordid);
                             c_uid.child("shop_name").setValue(shop_name);
                             c_uid.child("shop_type").setValue(shop_type);
