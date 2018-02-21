@@ -70,7 +70,7 @@ public class upload_items extends AppCompatActivity {
                             newpath.child("price").setValue(price);
                             newpath.child("description").setValue(discrip);
                             newpath.child("image").setValue(downloadUrl.toString());
-                            newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().toString());
+                            newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
                             mprograss.dismiss();
                             Toast.makeText(upload_items.this, "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
                         }
