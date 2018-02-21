@@ -12,15 +12,16 @@
         android:layout_height="309dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
         android:onClick="opencamer"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/item_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.083"
-        app:srcCompat="@drawable/addimage_min"
-        android:layout_marginRight="8dp" />
+        app:srcCompat="@drawable/addimage_min" />
 
     <EditText
         android:id="@+id/item_name"

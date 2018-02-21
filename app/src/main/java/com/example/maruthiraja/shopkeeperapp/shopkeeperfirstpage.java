@@ -35,8 +35,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
     private RecyclerView itemlist;
     private DatabaseReference mdatabase;
     boolean doubleBackToExitPressedOnce = false;
-
-
+    LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(shopkeeperfirstpage.this, LinearLayoutManager.HORIZONTAL, false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
 
         itemlist = (RecyclerView) findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
-        itemlist.setLayoutManager(new LinearLayoutManager(this));
+        itemlist.setLayoutManager(horizontalLayoutManagaer);
 
         mAuth = FirebaseAuth.getInstance();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
@@ -77,7 +76,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
                 ItemShow.class,
                 R.layout.item_list,
                 ItemHolder.class,
-                mdatabase
+                mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())
 
         ) {
 
