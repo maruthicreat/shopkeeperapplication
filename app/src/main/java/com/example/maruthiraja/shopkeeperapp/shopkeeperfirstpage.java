@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,8 @@ public class shopkeeperfirstpage extends AppCompatActivity
     private RecyclerView itemlist;
     private DatabaseReference mdatabase;
     boolean doubleBackToExitPressedOnce = false;
-    LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(shopkeeperfirstpage.this, LinearLayoutManager.HORIZONTAL, false);
+    LinearLayoutManager horizontalLayoutManagaer;
+    StaggeredGridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,9 @@ public class shopkeeperfirstpage extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
+         gridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        horizontalLayoutManagaer = new LinearLayoutManager(shopkeeperfirstpage.this, LinearLayoutManager.HORIZONTAL, false);
 
         itemlist = (RecyclerView) findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
