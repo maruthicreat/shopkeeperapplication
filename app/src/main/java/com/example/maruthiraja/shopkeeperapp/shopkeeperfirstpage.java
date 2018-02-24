@@ -1,10 +1,12 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,8 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +62,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
 
         itemlist = (RecyclerView) findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
-        itemlist.setLayoutManager(horizontalLayoutManagaer);
+        itemlist.setLayoutManager(gridLayoutManager);
         listitems = new ArrayList<String>();
         mAuth = FirebaseAuth.getInstance();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
@@ -148,6 +150,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
                 viewHolder.setPrice(model.getPrice());
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(model.getImage());
+                viewHolder.setRating(model.getRating());
             }
         };
 
@@ -206,6 +209,16 @@ public class shopkeeperfirstpage extends AppCompatActivity
             System.out.println("image"+image);
             ImageView imageView = (ImageView) mview.findViewById(R.id.item_image);
             Picasso.with(mview.getContext()).load(image).into(imageView);
+        }
+
+        public void setRating(String rating)
+        {
+            System.out.println("Rating"+rating);
+            RatingBar ratingBar = (RatingBar) mview.findViewById(R.id.ratingBar);
+            Drawable progress = ratingBar.getProgressDrawable();
+            DrawableCompat.setTint(progress, Color.WHITE);
+            ratingBar.setNumStars(5);
+            ratingBar.setRating(Float.parseFloat(rating));
         }
     }
 

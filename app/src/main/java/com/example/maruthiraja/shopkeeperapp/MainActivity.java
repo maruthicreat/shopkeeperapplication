@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.show();
             // Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
             mAuth.signInWithEmailAndPassword(uname, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
                         progressDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Incorrect User Id or Password..!!!", Toast.LENGTH_SHORT).show();
-
                     }
                     else {
                         progressDialog.dismiss();

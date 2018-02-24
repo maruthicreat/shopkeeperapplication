@@ -3,7 +3,20 @@ package com.example.maruthiraja.shopkeeperapp;
 
 public class ItemShow {
 
-    private String title,description,image,price;
+    private String title;
+    private String description;
+    private String image;
+    private String price;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    private String rating;
 
     public ItemShow() {
         System.out.println("ok ok");
