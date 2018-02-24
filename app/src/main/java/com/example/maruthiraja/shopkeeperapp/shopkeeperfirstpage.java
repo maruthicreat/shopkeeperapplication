@@ -3,9 +3,12 @@ package com.example.maruthiraja.shopkeeperapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +26,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +39,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class shopkeeperfirstpage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener ,HomeFragment.OnFragmentInteractionListener,CartFragment.OnFragmentInteractionListener,MyProfileFragment.OnFragmentInteractionListener
+,MyOrderFragment.OnFragmentInteractionListener{
+
+    Fragment fragment = null;
+    Class fragmentClass = null;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -55,17 +61,32 @@ public class shopkeeperfirstpage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
-         gridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        horizontalLayoutManagaer = new LinearLayoutManager(shopkeeperfirstpage.this, LinearLayoutManager.HORIZONTAL, false);
 
-        itemlist = (RecyclerView) findViewById(R.id.item_list);
-        itemlist.setHasFixedSize(true);
-        itemlist.setLayoutManager(gridLayoutManager);
-        listitems = new ArrayList<String>();
+        fragmentClass = HomeFragment.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+
+
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mAuth = FirebaseAuth.getInstance();
+        gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        //horizontalLayoutManagaer = new LinearLayoutManager(shopkeeperfirstpage.this, LinearLayoutManager.HORIZONTAL, false);
+
+        //itemlist = (RecyclerView) findViewById(R.id.item_list);
+        //itemlist.setHasFixedSize(true);
+        //itemlist.setLayoutManager(gridLayoutManager);
+        listitems = new ArrayList<String>();
+
+
         mdatabase.keepSynced(true);
 
 
@@ -135,7 +156,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+/*
         FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
                 ItemShow.class,
                 R.layout.item_list,
@@ -154,7 +175,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
             }
         };
 
-        itemlist.setAdapter(firebaseRecyclerAdapter);
+        itemlist.setAdapter(firebaseRecyclerAdapter);*/
     }
 
     @Override
@@ -171,6 +192,11 @@ public class shopkeeperfirstpage extends AppCompatActivity
         String listarr[] = listitems.toArray(new String[listitems.size()]);
        // Toast.makeText(this, listarr[0], Toast.LENGTH_SHORT).show();
         searchView.setSuggestions(listarr);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
 
@@ -293,18 +319,30 @@ public class shopkeeperfirstpage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            fragmentClass = HomeFragment.class;
             // Handle the camera action
         } else if (id == R.id.nav_cart) {
+            fragmentClass = CartFragment.class;
 
         } else if (id == R.id.nav_order) {
+            fragmentClass = MyOrderFragment.class;
 
         } else if (id == R.id.nav_account) {
+            fragmentClass = MyProfileFragment.class;
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
