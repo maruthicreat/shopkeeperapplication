@@ -3,7 +3,7 @@
     android:id="@+id/linshopkeeplayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,40 +12,43 @@
 
         <EditText
             android:id="@+id/usertext"
-            android:layout_width="wrap_content"
+            android:layout_width="357dp"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/passtext"
+            android:layout_alignLeft="@+id/passtext"
+            android:layout_alignStart="@+id/passtext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="41dp"
             android:ems="10"
             android:hint="User Name"
             android:inputType="textPersonName"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light"
-            android:layout_above="@+id/passtext"
-            android:layout_alignLeft="@+id/passtext"
-            android:layout_alignStart="@+id/passtext"
-            android:layout_marginBottom="41dp" />
+            android:textColorHint="@android:color/background_light" />
 
         <EditText
             android:id="@+id/passtext"
-            android:layout_width="wrap_content"
+            android:layout_width="357dp"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button2"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="95dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
             android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_centerHorizontal="true" />
+            android:textColorHint="@android:color/background_light" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="357dp"
             android:layout_height="wrap_content"
-            android:onClick="testpass"
-            android:text="LOGIN"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="197dp" />
+            android:layout_marginBottom="194dp"
+            android:background="@color/black"
+            android:onClick="testpass"
+            android:text="LOGIN"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/button3"
@@ -55,6 +58,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="17dp"
+            android:background="@color/colorAccent"
             android:layout_marginRight="17dp"
             android:layout_marginTop="29dp"
             android:onClick="callSignup"
@@ -73,5 +77,17 @@
             android:text="Shopkeeper Login"
             android:textColor="@android:color/background_light"
             android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passtext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Forget password..???"
+            android:textColor="?attr/colorError" />
     </RelativeLayout>
 </LinearLayout>

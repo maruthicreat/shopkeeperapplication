@@ -16,16 +16,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class shopkeeperfirstpage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +45,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
     boolean doubleBackToExitPressedOnce = false;
     LinearLayoutManager horizontalLayoutManagaer;
     StaggeredGridLayoutManager gridLayoutManager;
-
+    private List<String> listitems ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,19 +61,69 @@ public class shopkeeperfirstpage extends AppCompatActivity
         itemlist = (RecyclerView) findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
         itemlist.setLayoutManager(horizontalLayoutManagaer);
-
+        listitems = new ArrayList<String>();
         mAuth = FirebaseAuth.getInstance();
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
-       // searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        mdatabase.keepSynced(true);
 
 
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mdatabase.addValueEventListener(new ValueEventListener() {
+
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(shopkeeperfirstpage.this,upload_items.class));
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String key = ds.getKey();
+                    listitems.add(ds.child("title").getValue().toString());
+                    setsuggestion(listitems);
+                    //Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
+                }
+
+                //String value = dataSnapshot.getValue(String.class);
+                //System.out.println(value);
+                // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
             }
-        });*/
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                //Log.w(TAG, "Failed to read value.", error.toException());
+                System.out.println(error.toException());
+            }
+        });
+
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(shopkeeperfirstpage.this, "submit", Toast.LENGTH_SHORT).show();
+               // searchView.get
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+                Toast.makeText(shopkeeperfirstpage.this, "show", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+                Toast.makeText(shopkeeperfirstpage.this, "close", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -100,12 +157,17 @@ public class shopkeeperfirstpage extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
 
     public void floatclick(View view){
         startActivity(new Intent(shopkeeperfirstpage.this,upload_items.class));
+    }
+
+    public void setsuggestion(List<String> listitems) {
+        String listarr[] = listitems.toArray(new String[listitems.size()]);
+       // Toast.makeText(this, listarr[0], Toast.LENGTH_SHORT).show();
+        searchView.setSuggestions(listarr);
     }
 
 
@@ -153,22 +215,28 @@ public class shopkeeperfirstpage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-               // Toast.makeText(this, "finish all activity", Toast.LENGTH_SHORT).show();
-                finish();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
+            if (searchView.isSearchOpen()) {
+                searchView.closeSearch();
+            } else {
+                //super.onBackPressed();
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    // Toast.makeText(this, "finish all activity", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
                 }
-            }, 2000);
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce=false;
+                    }
+                }, 2000);
+            }
+
         }
     }
 
