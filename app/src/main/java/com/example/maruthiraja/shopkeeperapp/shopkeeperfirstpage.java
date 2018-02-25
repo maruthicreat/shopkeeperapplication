@@ -61,20 +61,20 @@ public class shopkeeperfirstpage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        Toast.makeText(this, "start callled", Toast.LENGTH_SHORT).show();
         fragmentClass = HomeFragment.class;
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putString("maru","hello");
+            fragment.setArguments(bundle);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
-
-
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mAuth = FirebaseAuth.getInstance();
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -119,9 +119,10 @@ public class shopkeeperfirstpage extends AppCompatActivity
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(shopkeeperfirstpage.this, "submit", Toast.LENGTH_SHORT).show();
-               // searchView.get
-                //Do some magic
+                Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(shopkeeperfirstpage.this,SearchItem.class);
+                intent.putExtra("message","hello world");
+                startActivity(intent);
                 return false;
             }
 
@@ -156,26 +157,6 @@ public class shopkeeperfirstpage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-/*
-        FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
-                ItemShow.class,
-                R.layout.item_list,
-                ItemHolder.class,
-                mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())
-
-        ) {
-
-            @Override
-            protected void populateViewHolder(ItemHolder viewHolder, ItemShow model, int position) {
-                viewHolder.setItemName(model.getTitle());
-                viewHolder.setPrice(model.getPrice());
-                viewHolder.setDescription(model.getDescription());
-                viewHolder.setImage(model.getImage());
-                viewHolder.setRating(model.getRating());
-            }
-        };
-
-        itemlist.setAdapter(firebaseRecyclerAdapter);*/
     }
 
     @Override

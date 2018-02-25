@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,6 +89,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        System.out.println("search value is  :  "+mParam1);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
@@ -124,8 +126,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            String get = getArguments().getString("maru");
+            System.out.println("in on create :  " + get);
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -138,16 +146,27 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        System.out.println("called");
+        Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
+        setrecycler(view);
+    }
+
+
+    public void setrecycler(View view)
+    {
         itemlist = (RecyclerView) view.findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
         itemlist.setLayoutManager(gridLayoutManager);
         listitems = new ArrayList<String>();
-
+        if (getArguments() != null) {
+            String get = getArguments().getString("maru");
+            System.out.println("in onviewcreate :  " + get);
+        }
         FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
                 ItemShow.class,
                 R.layout.item_list,
                 ItemHolder.class,
-                mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())
+                mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
 
         ) {
 

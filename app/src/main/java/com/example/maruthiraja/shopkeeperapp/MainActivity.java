@@ -87,4 +87,9 @@ public class MainActivity extends AppCompatActivity {
     public void callSignup(View view){
         startActivity(new Intent(MainActivity.this, ShopkeeperSignup.class));
     }
+
+    public void forgetpass(View view)
+    {
+        startActivity(new Intent(MainActivity.this,ForgetPassword.class));
+    }
 }
