@@ -121,7 +121,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(shopkeeperfirstpage.this,SearchItem.class);
-                intent.putExtra("message","hello world");
+                intent.putExtra("message",query);
                 startActivity(intent);
                 return false;
             }
