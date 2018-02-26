@@ -119,7 +119,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(shopkeeperfirstpage.this,SearchItem.class);
                 intent.putExtra("message",query);
                 startActivity(intent);
@@ -129,7 +129,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Do some magic
-                Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(shopkeeperfirstpage.this, "change", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -138,13 +138,13 @@ public class shopkeeperfirstpage extends AppCompatActivity
             @Override
             public void onSearchViewShown() {
                 //Do some magic
-                Toast.makeText(shopkeeperfirstpage.this, "show", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(shopkeeperfirstpage.this, "show", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSearchViewClosed() {
                 //Do some magic
-                Toast.makeText(shopkeeperfirstpage.this, "close", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(shopkeeperfirstpage.this, "close", Toast.LENGTH_SHORT).show();
             }
         });
 

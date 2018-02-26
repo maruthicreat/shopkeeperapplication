@@ -73,6 +73,7 @@ public class upload_items extends AppCompatActivity {
                             newpath.child("review").setValue("none");
                             newpath.child("rating").setValue("-1");
                             newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+                            newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
                             mprograss.dismiss();
                             Toast.makeText(upload_items.this, "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
                         }

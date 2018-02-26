@@ -89,38 +89,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-       /* System.out.println("search value is  :  "+mParam1);
-        mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
-        gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mdatabase.keepSynced(true);
-
-        mdatabase.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String key = ds.getKey();
-                    listitems.add(ds.child("title").getValue().toString());
-                   // setsuggestion(listitems);
-                   // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                    System.out.println("value");
-                }
-
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println(value);
-                // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                //Log.w(TAG, "Failed to read value.", error.toException());
-                System.out.println(error.toException());
-            }
-        });*/
-
-
     }
 
     @Override
@@ -155,7 +123,6 @@ public class HomeFragment extends Fragment {
     public void setrecycler(View view)
     {
 
-        System.out.println("search value is  :  "+mParam1);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
