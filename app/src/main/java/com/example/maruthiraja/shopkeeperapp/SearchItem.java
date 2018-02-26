@@ -55,7 +55,7 @@ public class SearchItem extends AppCompatActivity {
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
 
-        mdatabase.addValueEventListener(new ValueEventListener() {
+       /* mdatabase.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,7 +66,7 @@ public class SearchItem extends AppCompatActivity {
                     listitems.add(ds.child("title").getValue().toString());
                     // setsuggestion(listitems);
                     // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                    System.out.println("value");
+                   // System.out.println("value");
                 }
 
                 //String value = dataSnapshot.getValue(String.class);
@@ -79,7 +79,7 @@ public class SearchItem extends AppCompatActivity {
                 //Log.w(TAG, "Failed to read value.", error.toException());
                 System.out.println(error.toException());
             }
-        });
+        });*/
 
 
 

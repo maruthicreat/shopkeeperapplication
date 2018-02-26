@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
 
-        mdatabase.addValueEventListener(new ValueEventListener() {
+      /*  mdatabase.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,10 +135,10 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     String key = ds.getKey();
-                    listitems.add(ds.child("title").getValue().toString());
+                    //listitems.add(ds.child("title").getValue().toString());
                     // setsuggestion(listitems);
                     // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                    System.out.println("value");
+                   // System.out.println("value");
                 }
 
                 //String value = dataSnapshot.getValue(String.class);
@@ -152,10 +152,10 @@ public class HomeFragment extends Fragment {
                 System.out.println(error.toException());
             }
         });
+*/
 
 
-
-        Toast.makeText(getContext(), "called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "called", Toast.LENGTH_SHORT).show();
         itemlist = (RecyclerView) view.findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
         itemlist.setLayoutManager(gridLayoutManager);
