@@ -61,7 +61,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Toast.makeText(this, "start callled", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "start callled", Toast.LENGTH_SHORT).show();
         fragmentClass = HomeFragment.class;
 
         try {

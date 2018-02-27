@@ -12,6 +12,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -120,40 +121,12 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void setrecycler(View view)
+    public void setrecycler(final View view)
     {
 
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
-
-      /*  mdatabase.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String key = ds.getKey();
-                    //listitems.add(ds.child("title").getValue().toString());
-                    // setsuggestion(listitems);
-                    // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                   // System.out.println("value");
-                }
-
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println(value);
-                // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                //Log.w(TAG, "Failed to read value.", error.toException());
-                System.out.println(error.toException());
-            }
-        });
-*/
-
 
         //Toast.makeText(getContext(), "called", Toast.LENGTH_SHORT).show();
         itemlist = (RecyclerView) view.findViewById(R.id.item_list);
@@ -171,7 +144,6 @@ public class HomeFragment extends Fragment {
                 mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
 
         ) {
-
             @Override
             protected void populateViewHolder(ItemHolder viewHolder, ItemShow model, int position) {
                 viewHolder.setItemName(model.getTitle());
@@ -180,7 +152,43 @@ public class HomeFragment extends Fragment {
                 viewHolder.setImage(model.getImage());
                 viewHolder.setRating(model.getRating());
             }
+
+            @Override
+            public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                ItemHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new ItemHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return viewHolder;
+            }
+
         };
+       /* itemlist.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                Toast.makeText(getContext(), "intouch", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+                Toast.makeText(getContext(), "touch", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+                Toast.makeText(getContext(), "req", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         itemlist.setAdapter(firebaseRecyclerAdapter);
 
@@ -193,7 +201,35 @@ public class HomeFragment extends Fragment {
         public ItemHolder(View itemView) {
             super(itemView);
             mview = itemView;
+            mview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemClick(view,getAdapterPosition());
+                }
+            });
+            mview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                   // Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemLongClick(view,getAdapterPosition());
+                    return true;
+                }
+            });
         }
+
+        private ItemHolder.ClickListener mClickListener;
+
+        //Interface to send callbacks...
+        public interface ClickListener{
+            public void onItemClick(View view, int position);
+            public void onItemLongClick(View view, int position);
+        }
+
+        public void setOnClickListener(ItemHolder.ClickListener clickListener){
+            mClickListener = clickListener;
+        }
+
 
         public void setItemName(String name)
         {
