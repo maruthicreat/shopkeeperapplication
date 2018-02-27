@@ -6,39 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.maruthiraja.shopkeeperapp.SelectedItem">
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Delete Item"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/black"
-        android:text="Modify"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="416dp"
@@ -55,12 +22,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="539dp"
+        android:layout_height="533dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
@@ -72,6 +37,10 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="317dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
                 app:srcCompat="@drawable/addimage_min" />
 
             <TextView
@@ -84,7 +53,11 @@
                 android:paddingRight="10dp"
                 android:text="Title"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/selectPrice"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.1"
+                tools:layout_editor_absoluteX="8dp" />
 
             <TextView
                 android:id="@+id/selectPrice"
@@ -114,7 +87,10 @@
                     android:layout_marginRight="38dp"
                     android:layout_toLeftOf="@+id/textView5"
                     android:layout_toStartOf="@+id/textView5"
-                    android:text="No of Items" />
+                    android:text="No of Items"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar2"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPrice" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -128,7 +104,13 @@
                     android:layout_marginRight="46dp"
                     android:text="00"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/selectDescription"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.52"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <RatingBar
                     android:id="@+id/ratingBar2"
@@ -142,7 +124,11 @@
                     android:backgroundTint="@color/black"
                     android:numStars="5"
                     android:rating="3"
-                    android:stepSize="1" />
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toTopOf="@+id/selectDescription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPrice"
+                    app:layout_constraintVertical_bias="1.0" />
             </RelativeLayout>
 
             <TextView
@@ -156,9 +142,39 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Description" />
+                android:text="Description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="596dp"
+        android:backgroundTint="?android:attr/colorError"
+        android:text="Delete Item"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="596dp"
+        android:backgroundTint="@color/black"
+        android:text="Modify"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
