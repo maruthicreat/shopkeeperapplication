@@ -6,21 +6,32 @@
     android:layout_height="match_parent"
     tools:context="com.example.maruthiraja.shopkeeperapp.SelectedItem">
 
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        android:layout_width="395dp"
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:backgroundTint="?android:attr/colorError"
+        android:text="Delete Item"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="611dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/selectDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:backgroundTint="@color/black"
+        android:text="Modify"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="611dp" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar3"
-        android:layout_width="412dp"
+        android:layout_width="416dp"
         android:layout_height="59dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -32,56 +43,134 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="267dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
-        app:srcCompat="@drawable/addimage_min" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="601dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-    <TextView
-        android:id="@+id/selectTitle"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/selectPrice"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:layout_editor_absoluteX="8dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/selectPrice"
-        android:layout_width="395dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="12dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar2"
-        tools:layout_editor_absoluteX="8dp" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="317dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+                app:srcCompat="@drawable/addimage_min" />
 
-    <TextView
-        android:id="@+id/selectDescription"
-        android:layout_width="395dp"
-        android:layout_height="127dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/selectTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Title"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/selectPrice"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.1"
+                tools:layout_editor_absoluteX="8dp" />
+
+            <TextView
+                android:id="@+id/selectPrice"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="0000"
+                android:textSize="24sp"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="374dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:baselineAligned="false">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="38dp"
+                    android:layout_marginRight="38dp"
+                    android:layout_toLeftOf="@+id/textView5"
+                    android:layout_toStartOf="@+id/textView5"
+                    android:text="No of Items"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar2"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPrice" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="46dp"
+                    android:layout_marginRight="46dp"
+                    android:text="00"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/selectDescription"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.52"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar2"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:backgroundTint="@color/black"
+                    android:numStars="5"
+                    android:rating="3"
+                    android:stepSize="1"
+                    app:layout_constraintBottom_toTopOf="@+id/selectDescription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPrice"
+                    app:layout_constraintVertical_bias="1.0" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/selectDescription"
+                android:layout_width="match_parent"
+                android:layout_height="138dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

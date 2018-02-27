@@ -1,12 +1,11 @@
 package com.example.maruthiraja.shopkeeperapp;
 
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ public class SelectedItem extends AppCompatActivity {
     ImageView imageView;
     TextView des,name,title;
     TextView price;
+    RatingBar rb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class SelectedItem extends AppCompatActivity {
         des = (TextView) findViewById(R.id.selectDescription);
         price = (TextView) findViewById(R.id.selectPrice);
         title = (TextView) findViewById(R.id.selectTitle);
+        rb = (RatingBar) findViewById(R.id.ratingBar2);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mdatabase.child(itemid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -46,6 +47,7 @@ public class SelectedItem extends AppCompatActivity {
                 price.setText(pristr);
                 title.setText(titlestr);
                 des.setText(description);
+                rb.setRating(Float.parseFloat(rating));
                 Picasso.with(getApplicationContext()).load(image).centerCrop().resize(imageView.getMeasuredWidth(),imageView.getMeasuredHeight()).error(R.drawable.ic_broken_image_black_24dp)
                         .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
             }
