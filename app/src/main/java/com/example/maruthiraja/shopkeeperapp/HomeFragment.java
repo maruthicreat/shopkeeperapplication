@@ -1,6 +1,7 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -137,7 +138,7 @@ public class HomeFragment extends Fragment {
             String get = getArguments().getString("maru");
             System.out.println("in onviewcreate :  " + get);
         }
-        FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
+        final FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
                 ItemShow.class,
                 R.layout.item_list,
                 ItemHolder.class,
@@ -151,6 +152,14 @@ public class HomeFragment extends Fragment {
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(model.getImage());
                 viewHolder.setRating(model.getRating());
+                /*viewHolder.mview.setOnLongClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent selint = new Intent(getActivity(),SelectedItem.class);
+                        selint.putExtra("position",firebaseRecyclerAdapter.getRef(position).getKey());
+                        startActivity(selint);
+                    }
+                });*/
             }
 
             @Override
@@ -160,6 +169,10 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                        Intent selint = new Intent(getActivity(),SelectedItem.class);
+                        sendpos(selint);
+                        Intent intent = selint.putExtra("position", getRef(position).getKey());
+                        startActivity(intent);
                     }
 
                     @Override
@@ -171,7 +184,9 @@ public class HomeFragment extends Fragment {
             }
 
         };
-       /* itemlist.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+        /*
+        itemlist.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
@@ -191,6 +206,11 @@ public class HomeFragment extends Fragment {
         });*/
 
         itemlist.setAdapter(firebaseRecyclerAdapter);
+
+    }
+
+    public void sendpos(Intent selint)
+    {
 
     }
 
