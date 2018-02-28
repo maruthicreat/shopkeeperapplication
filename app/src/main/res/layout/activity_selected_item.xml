@@ -7,7 +7,7 @@
     tools:context="com.example.maruthiraja.shopkeeperapp.SelectedItem">
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/deletebtn"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.998" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/modifybtn"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
@@ -33,7 +33,7 @@
         android:text="Modify"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/deletebtn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

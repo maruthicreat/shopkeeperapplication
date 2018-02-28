@@ -13,7 +13,6 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,11 +22,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -276,7 +272,8 @@ public class HomeFragment extends Fragment {
         {
             System.out.println("image"+image);
             ImageView imageView = (ImageView) mview.findViewById(R.id.item_image);
-            Picasso.with(mview.getContext()).load(image).into(imageView);
+            Picasso.with(mview.getContext()).load(image).fit().centerInside().error(R.drawable.ic_broken_image_black_24dp)
+                    .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
         }
 
         public void setRating(String rating)

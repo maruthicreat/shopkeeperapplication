@@ -152,7 +152,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/deletebtn"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="596dp"
@@ -172,7 +172,7 @@
         android:backgroundTint="@color/black"
         android:text="Modify"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/deletebtn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
