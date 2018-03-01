@@ -29,6 +29,7 @@ public class upload_items extends AppCompatActivity {
     private EditText item_name;
     private EditText item_price;
     private EditText discription;
+    private EditText item_quantity;
     private Uri imageUri = null;
     private StorageReference mstorage;
     private DatabaseReference mdatabase;
@@ -42,6 +43,7 @@ public class upload_items extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView4);
         item_name = (EditText) findViewById(R.id.item_name);
         item_price = (EditText) findViewById(R.id.price);
+        item_quantity = (EditText) findViewById(R.id.item_quantity);
         discription = (EditText) findViewById(R.id.discription);
         mstorage = FirebaseStorage.getInstance().getReference();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
@@ -56,8 +58,9 @@ public class upload_items extends AppCompatActivity {
                 final String item = item_name.getText().toString().trim();
                 final String price = item_price.getText().toString().trim();
                 final String discrip = discription.getText().toString().trim();
+                final String qnty = item_quantity.getText().toString().trim();
 
-                if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(price) && !TextUtils.isEmpty(discrip) && imageUri != null)
+                if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(price) && !TextUtils.isEmpty(discrip) && imageUri != null && !TextUtils.isEmpty(qnty))
                 {
                     StorageReference filepath = mstorage.child("images").child(imageUri.getLastPathSegment());
 
@@ -72,6 +75,7 @@ public class upload_items extends AppCompatActivity {
                             newpath.child("image").setValue(downloadUrl.toString());
                             newpath.child("review").setValue("none");
                             newpath.child("rating").setValue("-1");
+                            newpath.child("quantity").setValue(qnty);
                             newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
                             newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
                             mprograss.dismiss();
