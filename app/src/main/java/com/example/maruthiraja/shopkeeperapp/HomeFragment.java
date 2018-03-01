@@ -1,6 +1,7 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -21,11 +22,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -120,40 +118,12 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void setrecycler(View view)
+    public void setrecycler(final View view)
     {
 
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
-
-      /*  mdatabase.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String key = ds.getKey();
-                    //listitems.add(ds.child("title").getValue().toString());
-                    // setsuggestion(listitems);
-                    // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                   // System.out.println("value");
-                }
-
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println(value);
-                // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                //Log.w(TAG, "Failed to read value.", error.toException());
-                System.out.println(error.toException());
-            }
-        });
-*/
-
 
         //Toast.makeText(getContext(), "called", Toast.LENGTH_SHORT).show();
         itemlist = (RecyclerView) view.findViewById(R.id.item_list);
@@ -164,14 +134,13 @@ public class HomeFragment extends Fragment {
             String get = getArguments().getString("maru");
             System.out.println("in onviewcreate :  " + get);
         }
-        FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
+        final FirebaseRecyclerAdapter<ItemShow,ItemHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemShow, ItemHolder>(
                 ItemShow.class,
                 R.layout.item_list,
                 ItemHolder.class,
                 mdatabase.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
 
         ) {
-
             @Override
             protected void populateViewHolder(ItemHolder viewHolder, ItemShow model, int position) {
                 viewHolder.setItemName(model.getTitle());
@@ -179,10 +148,65 @@ public class HomeFragment extends Fragment {
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(model.getImage());
                 viewHolder.setRating(model.getRating());
+                /*viewHolder.mview.setOnLongClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent selint = new Intent(getActivity(),SelectedItem.class);
+                        selint.putExtra("position",firebaseRecyclerAdapter.getRef(position).getKey());
+                        startActivity(selint);
+                    }
+                });*/
             }
+
+            @Override
+            public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                ItemHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new ItemHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                        Intent selint = new Intent(getActivity(),SelectedItem.class);
+                        sendpos(selint);
+                        Intent intent = selint.putExtra("position", getRef(position).getKey());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        Toast.makeText(getActivity(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return viewHolder;
+            }
+
         };
 
+        /*
+        itemlist.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                Toast.makeText(getContext(), "intouch", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+                Toast.makeText(getContext(), "touch", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+                Toast.makeText(getContext(), "req", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
         itemlist.setAdapter(firebaseRecyclerAdapter);
+
+    }
+
+    public void sendpos(Intent selint)
+    {
 
     }
 
@@ -193,7 +217,35 @@ public class HomeFragment extends Fragment {
         public ItemHolder(View itemView) {
             super(itemView);
             mview = itemView;
+            mview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(mview.getContext(), "you clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemClick(view,getAdapterPosition());
+                }
+            });
+            mview.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                   // Toast.makeText(mview.getContext(), "you Long clicked me!!", Toast.LENGTH_SHORT).show();
+                    mClickListener.onItemLongClick(view,getAdapterPosition());
+                    return true;
+                }
+            });
         }
+
+        private ItemHolder.ClickListener mClickListener;
+
+        //Interface to send callbacks...
+        public interface ClickListener{
+            public void onItemClick(View view, int position);
+            public void onItemLongClick(View view, int position);
+        }
+
+        public void setOnClickListener(ItemHolder.ClickListener clickListener){
+            mClickListener = clickListener;
+        }
+
 
         public void setItemName(String name)
         {
@@ -220,7 +272,8 @@ public class HomeFragment extends Fragment {
         {
             System.out.println("image"+image);
             ImageView imageView = (ImageView) mview.findViewById(R.id.item_image);
-            Picasso.with(mview.getContext()).load(image).into(imageView);
+            Picasso.with(mview.getContext()).load(image).fit().centerInside().error(R.drawable.ic_broken_image_black_24dp)
+                    .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
         }
 
         public void setRating(String rating)

@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
@@ -51,9 +51,11 @@
         <TextView
             android:id="@+id/item_description"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="wrap_content"
             android:fontFamily="monospace"
+            android:nestedScrollingEnabled="false"
             android:padding="10dp"
+            android:singleLine="true"
             android:text="Description"
             android:textColor="@android:color/background_light"
             android:textColorHint="@android:color/background_light" />
@@ -68,8 +70,7 @@
             android:clickable="true"
             android:focusable="true"
             android:numStars="5"
-            android:progressBackgroundTint="@android:color/background_light"
-            />
+            android:progressBackgroundTint="@android:color/background_light" />
 
 
     </LinearLayout>
