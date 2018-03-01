@@ -1,94 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linshopkeeplayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linshopkeeplayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/usertext"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/passtext"
-            android:layout_alignLeft="@+id/passtext"
-            android:layout_alignStart="@+id/passtext"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="41dp"
-            android:ems="10"
-            android:hint="User Name"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/passtext"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="95dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="357dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/black"
+                android:onClick="testpass"
+                android:text="LOGIN"
+                android:textColor="@color/white"
+                tools:layout_editor_absoluteX="27dp"
+                tools:layout_editor_absoluteY="416dp" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="194dp"
-            android:background="@color/black"
-            android:onClick="testpass"
-            android:text="LOGIN"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passtext"
+                android:layout_centerHorizontal="true"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:onClick="forgetpass"
+                android:text="Forget password..???"
+                android:textColor="@color/colorAccent"
+                tools:layout_editor_absoluteX="139dp"
+                tools:layout_editor_absoluteY="515dp" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="17dp"
-            android:background="@color/colorAccent"
-            android:layout_marginRight="17dp"
-            android:layout_marginTop="29dp"
-            android:onClick="callSignup"
-            android:text="signup" />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorAccent"
+                android:onClick="callSignup"
+                android:text="signup"
+                tools:layout_editor_absoluteX="306dp"
+                tools:layout_editor_absoluteY="29dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button3"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/button3"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"
-            android:text="Shopkeeper Login"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="161dp">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/passtext"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="47dp"
-            android:onClick="forgetpass"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:text="Forget password..???"
-            android:textColor="@color/colorAccent" />
+                <EditText
+                    android:id="@+id/usertext"
+                    android:layout_width="357dp"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/passtext"
+                    android:layout_alignLeft="@+id/passtext"
+                    android:layout_alignStart="@+id/passtext"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="41dp"
+                    android:ems="10"
+                    android:hint="User Name"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/background_light"
+                    android:textColorHint="@android:color/background_light" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/button3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/button3"
+                android:text="Shopkeeper Login"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="29dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="279dp">
+
+                <EditText
+                    android:id="@+id/passtext"
+                    android:layout_width="357dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/button2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="95dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/background_light"
+                    android:textColorHint="@android:color/background_light" />
+            </android.support.design.widget.TextInputLayout>
+        </android.support.constraint.ConstraintLayout>
+
     </RelativeLayout>
-</LinearLayout>
