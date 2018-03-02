@@ -86,6 +86,9 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        use = (TextView) view.findViewById(R.id.usernametext);
+        mob = (TextView)view.findViewById(R.id.mobiletext);
+        mail = (TextView)view.findViewById(R.id.mailidtext);
 
         super.onViewCreated(view, savedInstanceState);
         Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
@@ -103,7 +106,9 @@ public class MyProfileFragment extends Fragment {
                     if (email.equals(checkmail)) {
                         String na = ds.child("name").getValue().toString();
                         String ph = ds.child("phone").getValue().toString();
-
+                        use.setText(na);
+                        use.setText(ph);
+                        use.setText(email);
                         Toast.makeText(getContext(), na, Toast.LENGTH_SHORT).show();
                     }
                 }

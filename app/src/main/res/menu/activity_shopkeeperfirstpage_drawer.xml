@@ -10,12 +10,12 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="Cart" />
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="Notification" />
         <item
             android:id="@+id/nav_order"
             android:icon="@drawable/ic_shopping_basket_black_24dp"
-            android:title="My Order" />
+            android:title="Pending Orders" />
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_circle_black_24dp"
