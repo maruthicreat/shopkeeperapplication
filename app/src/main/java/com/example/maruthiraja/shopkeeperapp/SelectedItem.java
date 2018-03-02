@@ -24,7 +24,7 @@ public class SelectedItem extends AppCompatActivity {
     private DatabaseReference mdatabase;
     Button del,mod;
     ImageView imageView;
-    TextView des,name,title;
+    TextView des,name,title,noofitem;
     TextView price;
     RatingBar rb;
     @Override
@@ -38,6 +38,7 @@ public class SelectedItem extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView2);
         des = (TextView) findViewById(R.id.selectDescription);
         price = (TextView) findViewById(R.id.selectPrice);
+        noofitem = (TextView) findViewById(R.id.noofitemtext);
         title = (TextView) findViewById(R.id.selectTitle);
         rb = (RatingBar) findViewById(R.id.ratingBar2);
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
@@ -50,7 +51,9 @@ public class SelectedItem extends AppCompatActivity {
                     String pristr = (String) dataSnapshot.child("price").getValue();
                     String rating = (String) dataSnapshot.child("rating").getValue();
                     String titlestr = (String) dataSnapshot.child("title").getValue();
+                    String itemno = (String) dataSnapshot.child("quantity").getValue();
                     price.setText(pristr);
+                    noofitem.setText(itemno);
                     title.setText(titlestr);
                     des.setText(description);
                     rb.setRating(Float.parseFloat(rating));
