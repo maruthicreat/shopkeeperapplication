@@ -166,7 +166,6 @@ public class HomeFragment extends Fragment {
                     public void onItemClick(View view, int position) {
                         Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
                         Intent selint = new Intent(getActivity(),SelectedItem.class);
-                        sendpos(selint);
                         Intent intent = selint.putExtra("position", getRef(position).getKey());
                         startActivity(intent);
                     }
@@ -205,10 +204,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void sendpos(Intent selint)
-    {
-
-    }
 
     public static class ItemHolder extends RecyclerView.ViewHolder{
 

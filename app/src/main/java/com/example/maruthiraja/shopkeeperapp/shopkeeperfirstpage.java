@@ -188,6 +188,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
         public ItemHolder(View itemView) {
             super(itemView);
             mview = itemView;
+
         }
 
         public void setItemName(String name)

@@ -50,7 +50,6 @@ public class SearchItem extends AppCompatActivity {
     }
 
     private void setrecycler() {
-
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="309dp"
+        android:layout_width="416dp"
+        android:layout_height="296dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
@@ -20,16 +20,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/addimage_min" />
 
     <EditText
         android:id="@+id/item_name"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/input_text_background"
         android:ems="10"
         android:hint="Item Name"
@@ -37,15 +38,36 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <EditText
+        android:id="@+id/item_quantity"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_text_background"
+        android:ems="10"
+        android:hint="Quantity"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
     <EditText
         android:id="@+id/price"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="104dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/input_text_background"
         android:ems="10"
         android:hint="Your Price"
@@ -53,13 +75,14 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/upload_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.981" />
 
     <Button
         android:id="@+id/upload_button"
         android:layout_width="436dp"
         android:layout_height="79dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/black"
@@ -88,6 +111,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.877" />
+        app:layout_constraintVertical_bias="0.983" />
 
 </android.support.constraint.ConstraintLayout>
