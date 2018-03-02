@@ -35,7 +35,7 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
     String lat,log;
     Button mapButton;
     TextView location;
-    EditText repass,emailId,password,shopName,shopType;
+    EditText repass,emailId,password,shopName,shopType,phone,name;
     private GoogleApiClient mGoogleApiClient;
     int PLACE_PICKER_REQUEST = 1;
     StringBuilder stBuilder = new StringBuilder();
@@ -44,6 +44,8 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopkeeper_signup);
+        phone = (EditText)findViewById(R.id.phoneno);
+        name = (EditText)findViewById(R.id.nameid);
         shopName = (EditText)findViewById(R.id.shop_name);
         shopType = (EditText)findViewById(R.id.shop_type);
         mapButton = (Button)findViewById(R.id.map_button);
@@ -112,7 +114,9 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
         final String passwordid = password.getText().toString().trim();
         final String shop_name = shopName.getText().toString().trim();
         final String shop_type = shopType.getText().toString().trim();
-        if(TextUtils.isEmpty(rep) && TextUtils.isEmpty(emailid) && TextUtils.isEmpty(passwordid))
+        final String hisname = name.getText().toString().trim();
+        final String hisphone = phone.getText().toString().trim();
+        if(TextUtils.isEmpty(rep) && TextUtils.isEmpty(emailid) && TextUtils.isEmpty(passwordid) && TextUtils.isEmpty(hisname) && TextUtils.isEmpty(hisphone) &&  TextUtils.isEmpty(shop_name) &&  TextUtils.isEmpty(shop_type))
         {
             Toast.makeText(this, "Pls fill the text fields...!!!", Toast.LENGTH_SHORT).show();
         }
@@ -146,6 +150,8 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
                             c_uid.child("password").setValue(passwordid);
                             c_uid.child("shop_name").setValue(shop_name);
                             c_uid.child("shop_type").setValue(shop_type);
+                            c_uid.child("name").setValue(hisname);
+                            c_uid.child("phone").setValue(hisphone);
                             progressDialog.dismiss();
                             Toast.makeText(ShopkeeperSignup.this, "You are Successfully Signed up...!!!", Toast.LENGTH_SHORT).show();
                         } else {

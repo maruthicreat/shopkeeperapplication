@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         System.out.println("called");
-        Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
         setrecycler(view);
     }
 

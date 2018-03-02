@@ -3,10 +3,22 @@ package com.example.maruthiraja.shopkeeperapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -22,6 +34,10 @@ public class MyProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    TextView use,mob,mail;
+
+    private DatabaseReference mdatabase;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,6 +81,40 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+        super.onViewCreated(view, savedInstanceState);
+        Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String email = user.getEmail();
+        //Toast.makeText(getContext(), email, Toast.LENGTH_SHORT).show();
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("ShopkeeperSignup");
+        mdatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    String key = ds.getKey();
+                    String checkmail = ds.child("mail_id").getValue().toString();
+                    if (email.equals(checkmail)) {
+                        String na = ds.child("name").getValue().toString();
+                        String ph = ds.child("phone").getValue().toString();
+
+                        Toast.makeText(getContext(), na, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
