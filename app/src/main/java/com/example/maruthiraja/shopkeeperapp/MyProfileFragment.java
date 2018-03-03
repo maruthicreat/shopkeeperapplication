@@ -107,8 +107,8 @@ public class MyProfileFragment extends Fragment {
                         String na = ds.child("name").getValue().toString();
                         String ph = ds.child("phone").getValue().toString();
                         use.setText(na);
-                        use.setText(ph);
-                        use.setText(email);
+                        mob.setText(ph);
+                        mail.setText(email);
                         Toast.makeText(getContext(), na, Toast.LENGTH_SHORT).show();
                     }
                 }
