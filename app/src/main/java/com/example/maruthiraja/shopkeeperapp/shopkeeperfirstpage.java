@@ -216,7 +216,8 @@ public class shopkeeperfirstpage extends AppCompatActivity
         {
             System.out.println("image"+image);
             ImageView imageView = (ImageView) mview.findViewById(R.id.item_image);
-            Picasso.with(mview.getContext()).load(image).into(imageView);
+            Picasso.with(mview.getContext()).load(image).centerCrop().error(R.drawable.ic_broken_image_black_24dp)
+                    .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
         }
 
         public void setRating(String rating)

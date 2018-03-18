@@ -177,7 +177,6 @@ public class HomeFragment extends Fragment {
                 });
                 return viewHolder;
             }
-
         };
 
         /*
@@ -198,7 +197,8 @@ public class HomeFragment extends Fragment {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
                 Toast.makeText(getContext(), "req", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+        */
 
         itemlist.setAdapter(firebaseRecyclerAdapter);
 

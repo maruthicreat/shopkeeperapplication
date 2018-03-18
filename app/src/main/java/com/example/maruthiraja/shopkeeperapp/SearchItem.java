@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -53,35 +54,6 @@ public class SearchItem extends AppCompatActivity {
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
-
-       /* mdatabase.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    String key = ds.getKey();
-                    listitems.add(ds.child("title").getValue().toString());
-                    // setsuggestion(listitems);
-                    // Toast.makeText(shopkeeperfirstpage.this, listitems.get(1), Toast.LENGTH_SHORT).show();
-                   // System.out.println("value");
-                }
-
-                //String value = dataSnapshot.getValue(String.class);
-                //System.out.println(value);
-                // Toast.makeText(viewItem.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                //Log.w(TAG, "Failed to read value.", error.toException());
-                System.out.println(error.toException());
-            }
-        });*/
-
-
-
         //Toast.makeText(this, "called", Toast.LENGTH_SHORT).show();
         itemlist = (RecyclerView) findViewById(R.id.item_list);
         itemlist.setHasFixedSize(true);
@@ -103,6 +75,27 @@ public class SearchItem extends AppCompatActivity {
                 viewHolder.setImage(model.getImage());
                 viewHolder.setRating(model.getRating());
             }
+
+            @Override
+            public HomeFragment.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                HomeFragment.ItemHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new HomeFragment.ItemHolder.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                        Intent selint = new Intent(getApplicationContext(),SelectedItem.class);
+                        Intent intent = selint.putExtra("position", getRef(position).getKey());
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return viewHolder;
+            }
+
         };
 
         itemlist.setAdapter(firebaseRecyclerAdapter);
