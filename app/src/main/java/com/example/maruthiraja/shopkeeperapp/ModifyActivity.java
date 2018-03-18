@@ -16,39 +16,75 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
-public class upload_items extends AppCompatActivity {
+public class ModifyActivity extends AppCompatActivity {
 
     private ImageView imageView ;
     private static final int GALLERY_REQUEST = 1;
     private EditText item_name;
     private EditText item_price;
     private EditText discription;
+    private String itemid;
     private EditText item_quantity;
     private Uri imageUri = null;
     private StorageReference mstorage;
     private DatabaseReference mdatabase;
     private ProgressDialog mprograss;
     private Button upbutton;
-
+    private String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_items);
+        setContentView(R.layout.activity_modify);
+        itemid = getIntent().getStringExtra("itemid");
         imageView = (ImageView) findViewById(R.id.imageView4_up);
         item_name = (EditText) findViewById(R.id.item_name_up);
         item_price = (EditText) findViewById(R.id.price_up);
-        item_quantity = (EditText) findViewById(R.id.item_quantity);
-        discription = (EditText) findViewById(R.id.discription);
+        item_quantity = (EditText) findViewById(R.id.item_quantity_up);
+        discription = (EditText) findViewById(R.id.discription_up);
         mstorage = FirebaseStorage.getInstance().getReference();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         mprograss = new ProgressDialog(this);
         upbutton = (Button) findViewById(R.id.upload_button);
+
+
+        mdatabase.child(itemid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    String description = (String) dataSnapshot.child("description").getValue();
+                    image = (String) dataSnapshot.child("image").getValue();
+                    String pristr = (String) dataSnapshot.child("price").getValue();
+                    String rating = (String) dataSnapshot.child("rating").getValue();
+                    String titlestr = (String) dataSnapshot.child("title").getValue();
+                    String itemno = (String) dataSnapshot.child("quantity").getValue();
+                    item_price.setText(pristr);
+                    item_quantity.setText(itemno);
+                    item_name.setText(titlestr);
+                    discription.setText(description);
+                    Picasso.with(getApplicationContext()).load(image).centerCrop().resize(imageView.getMeasuredWidth(),imageView.getMeasuredHeight()).error(R.drawable.ic_broken_image_black_24dp)
+                            .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
+                }catch (Exception e)
+                {
+                    finish();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         upbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +95,21 @@ public class upload_items extends AppCompatActivity {
                 final String price = item_price.getText().toString().trim();
                 final String discrip = discription.getText().toString().trim();
                 final String qnty = item_quantity.getText().toString().trim();
+                if (imageUri == null)
+                {
+                    DatabaseReference newpath = mdatabase.child(itemid);
+                    newpath.child("title").setValue(item);
+                    newpath.child("price").setValue(price);
+                    newpath.child("description").setValue(discrip);
+                    newpath.child("image").setValue(image);
+                    newpath.child("review").setValue("none");
+                    newpath.child("rating").setValue("-1");
+                    newpath.child("quantity").setValue(qnty);
+                    newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+                    newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
+                    mprograss.dismiss();
+                    Toast.makeText(getApplicationContext(), "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
+                }
 
                 if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(price) && !TextUtils.isEmpty(discrip) && imageUri != null && !TextUtils.isEmpty(qnty))
                 {
@@ -68,7 +119,7 @@ public class upload_items extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            DatabaseReference newpath = mdatabase.push();
+                            DatabaseReference newpath = mdatabase.child(itemid);
                             newpath.child("title").setValue(item);
                             newpath.child("price").setValue(price);
                             newpath.child("description").setValue(discrip);
@@ -79,27 +130,26 @@ public class upload_items extends AppCompatActivity {
                             newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
                             newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
                             mprograss.dismiss();
-                            Toast.makeText(upload_items.this, "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             mprograss.dismiss();
-                            Toast.makeText(upload_items.this, "Upload failed...!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Upload failed...!!!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
                 else {
                     mprograss.dismiss();
-                    Toast.makeText(upload_items.this, "fields are empty ...!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "fields are empty ...!!!", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-    }
 
-
-    public void opencamer(View view)
+  }
+    public void opencamermod(View view)
     {
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");

@@ -1,5 +1,6 @@
 package com.example.maruthiraja.shopkeeperapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -79,6 +80,17 @@ public class SelectedItem extends AppCompatActivity {
                 Toast.makeText(SelectedItem.this, "Item deleted Successfully", Toast.LENGTH_SHORT).show();
             }
         });
+        mod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ModifyActivity.class);
+                intent.putExtra("itemid",itemid);
+                startActivity(intent);
+                //finish();
+                Toast.makeText(SelectedItem.this, "Item Uploaded Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         setSupportActionBar(toolbar);
         Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
     }

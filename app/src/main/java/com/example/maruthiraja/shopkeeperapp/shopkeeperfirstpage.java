@@ -194,7 +194,7 @@ public class shopkeeperfirstpage extends AppCompatActivity
         public void setItemName(String name)
         {
             System.out.println("name"+name);
-            TextView item_n = (TextView) mview.findViewById(R.id.item_name);
+            TextView item_n = (TextView) mview.findViewById(R.id.item_name_up);
             item_n.setText(name);
         }
 

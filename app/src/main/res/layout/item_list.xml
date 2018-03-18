@@ -25,7 +25,7 @@
             app:srcCompat="@color/white" />
 
         <TextView
-            android:id="@+id/item_name"
+            android:id="@+id/item_name_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
