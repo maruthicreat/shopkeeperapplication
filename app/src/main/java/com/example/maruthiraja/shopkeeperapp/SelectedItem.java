@@ -1,6 +1,7 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +32,7 @@ public class SelectedItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_selected_item);
         itemid = getIntent().getStringExtra("position");
         del = (Button) findViewById(R.id.deletebtn);
@@ -38,6 +40,9 @@ public class SelectedItem extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar3);
         imageView = (ImageView) findViewById(R.id.imageView2);
         des = (TextView) findViewById(R.id.selectDescription);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         price = (TextView) findViewById(R.id.selectPrice);
         noofitem = (TextView) findViewById(R.id.noofitemtext);
         title = (TextView) findViewById(R.id.selectTitle);
@@ -83,16 +88,13 @@ public class SelectedItem extends AppCompatActivity {
         mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),ModifyActivity.class);
-                intent.putExtra("itemid",itemid);
+                Intent selint = new Intent(getApplicationContext(),ModifyActivity.class);
+                Intent intent = selint.putExtra("itemid", itemid);
                 startActivity(intent);
-                //finish();
-                Toast.makeText(SelectedItem.this, "Item Uploaded Successfully", Toast.LENGTH_SHORT).show();
             }
         });
-
         setSupportActionBar(toolbar);
-        Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, itemid, Toast.LENGTH_SHORT).show();
     }
 
     @Override

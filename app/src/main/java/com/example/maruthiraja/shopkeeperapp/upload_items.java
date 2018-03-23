@@ -2,6 +2,7 @@ package com.example.maruthiraja.shopkeeperapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ public class upload_items extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_upload_items);
         imageView = (ImageView) findViewById(R.id.imageView4_up);
         item_name = (EditText) findViewById(R.id.item_name_up);

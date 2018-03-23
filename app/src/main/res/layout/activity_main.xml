@@ -21,11 +21,14 @@
             android:layout_alignStart="@+id/passtext"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="41dp"
+            android:background="@drawable/editstyle"
+            android:drawableRight="@drawable/ic_person_black_24dp"
             android:ems="10"
             android:hint="User Name"
             android:inputType="textPersonName"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/passtext"
@@ -34,11 +37,14 @@
             android:layout_alignBottom="@+id/button2"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="95dp"
+            android:background="@drawable/editstyle"
+            android:drawableRight="@drawable/ic_lock_black_24dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textColor="@android:color/background_light"
-            android:textColorHint="@android:color/background_light" />
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <Button
             android:id="@+id/button2"
@@ -47,10 +53,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="194dp"
-            android:background="@android:color/holo_orange_dark"
+            android:background="@drawable/buttonback"
             android:onClick="testpass"
             android:text="LOGIN"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/button3"
@@ -62,7 +68,7 @@
             android:layout_marginEnd="17dp"
             android:layout_marginRight="17dp"
             android:layout_marginTop="29dp"
-            android:background="@android:color/holo_orange_dark"
+            android:background="@drawable/buttonback"
             android:onClick="callSignup"
             android:text="signup" />
 

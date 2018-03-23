@@ -3,10 +3,30 @@ package com.example.maruthiraja.shopkeeperapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 /**
@@ -26,6 +46,19 @@ public class MyOrderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    private RecyclerView mList;
+    private FirebaseUser cuser;
+    private MaterialSearchView searchView;
+    private FirebaseDatabase database,mdb;
+    private Toolbar toolbar;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    DatabaseReference myRef,mref;
+    boolean doubleBackToExitPressedOnce = false;
+    StaggeredGridLayoutManager gridLayoutManager;
+    LinearLayoutManager horizontalLayoutManagaer;
+    private List<String> listitems;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,6 +100,7 @@ public class MyOrderFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_my_order, container, false);
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -82,6 +116,103 @@ public class MyOrderFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setrecycler(view);
+    }
+
+    private void setrecycler(View view) {
+        mList = (RecyclerView) view.findViewById(R.id.orderlist);
+        mList.setHasFixedSize(true);
+        mAuth = FirebaseAuth.getInstance();
+        cuser = mAuth.getCurrentUser();
+        horizontalLayoutManagaer = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mList.setLayoutManager(horizontalLayoutManagaer);
+        database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
+        myRef = database.getReference("Purchased").child(cuser.getUid());
+        myRef.keepSynced(true);
+
+        FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder>(
+                GetPurchaseData.class,
+                R.layout.orderlist,
+                purchaseHolder.class,
+                myRef
+        ) {
+            @Override
+            protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, final int position) {
+               // Toast.makeText(getContext(), "view", Toast.LENGTH_SHORT).show();
+                String itemid = model.getItemid();
+                String itemname = model.getItemname();
+                String itemtime = model.getPurchaseTime();
+                String itmerating = model.getItemrating();
+                String itmepaymod = model.getPaymentMode();
+                String itmeaddress = model.getOrderat();
+                // mdb = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
+                //mref = database.getReference("shop_details").child(itemid);
+                viewHolder.setTitleName(itemname);
+                viewHolder.setTiming(itemtime);
+                viewHolder.setPrice(model.getPrice());
+                viewHolder.setadd(itmeaddress);
+                viewHolder.setpaymode(itmepaymod);
+                viewHolder.setImage(getContext(), model.getItemimage());
+                viewHolder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myRef.child(getRef(position).getKey()).removeValue();
+                        Toast.makeText(getContext(), "Order Successfully Canceled ..!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+        };
+        mList.setAdapter(firebaseRecyclerAdapter);
+
+
+    }
+
+    public static class purchaseHolder extends RecyclerView.ViewHolder {
+        View mview;
+        Button button;
+
+        public purchaseHolder(View itemView) {
+            super(itemView);
+            mview = itemView;
+            button = (Button)mview.findViewById(R.id.cartremovebtn);
+        }
+        public void setTitleName(String title)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.cartitemname);
+            textTitle.setText(title);
+        }
+        public void setTiming(String timing)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.orddatetxt);
+            textTitle.setText(timing);
+        }
+        public void setadd(String address)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.ordadderestxt);
+            textTitle.setText(address);
+        }
+        public void setpaymode(String paymode)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.ordpaymenttxt);
+            textTitle.setText(paymode);
+        }
+        public void setPrice(String price)
+        {
+            TextView textTitle = (TextView) mview.findViewById(R.id.cartprice);
+            textTitle.setText(price);
+        }
+
+        public void setImage(Context applicationContext, String itemimage) {
+            ImageView imageView = (ImageView) mview.findViewById(R.id.cartimage);
+            Picasso.with(mview.getContext()).load(itemimage).fit().centerCrop().error(R.drawable.ic_broken_image_black_24dp)
+                    .placeholder(R.drawable.ic_image_black_24dp).into(imageView);
         }
     }
 

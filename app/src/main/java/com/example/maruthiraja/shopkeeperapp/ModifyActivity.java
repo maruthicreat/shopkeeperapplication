@@ -1,7 +1,9 @@
 package com.example.maruthiraja.shopkeeperapp;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,9 +44,11 @@ public class ModifyActivity extends AppCompatActivity {
     private ProgressDialog mprograss;
     private Button upbutton;
     private String image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_modify);
         itemid = getIntent().getStringExtra("itemid");
         imageView = (ImageView) findViewById(R.id.imageView4_up);
@@ -88,7 +93,7 @@ public class ModifyActivity extends AppCompatActivity {
         upbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mprograss.setMessage("Uploading...!!!");
+                mprograss.setMessage("Updating...!!!");
                 mprograss.show();
 
                 final String item = item_name.getText().toString().trim();
@@ -108,7 +113,7 @@ public class ModifyActivity extends AppCompatActivity {
                     newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
                     newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
                     mprograss.dismiss();
-                    Toast.makeText(getApplicationContext(), "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Updated successfull...!!!", Toast.LENGTH_SHORT).show();
                 }
 
                 if (!TextUtils.isEmpty(item) && !TextUtils.isEmpty(price) && !TextUtils.isEmpty(discrip) && imageUri != null && !TextUtils.isEmpty(qnty))
@@ -130,13 +135,13 @@ public class ModifyActivity extends AppCompatActivity {
                             newpath.child("id").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
                             newpath.child("id_title").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()+"_"+item);
                             mprograss.dismiss();
-                            Toast.makeText(getApplicationContext(), "Upload successfull...!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Updated successfull...!!!", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             mprograss.dismiss();
-                            Toast.makeText(getApplicationContext(), "Upload failed...!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Update failed...!!!", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -164,5 +169,6 @@ public class ModifyActivity extends AppCompatActivity {
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
         }
+
     }
 }

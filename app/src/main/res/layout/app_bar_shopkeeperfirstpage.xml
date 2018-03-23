@@ -14,8 +14,8 @@
         android:layout_margin="10dp"
         android:clickable="true"
         android:onClick="floatclick"
-        app:backgroundTint="@android:color/black"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:src="@drawable/ic_add_circle_black_24dp"
+        app:backgroundTint="@color/black" />
 
 
   <!--  <include layout="@layout/content_shopkeeperfirstpage" />-->

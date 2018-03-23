@@ -3,6 +3,7 @@ package com.example.maruthiraja.shopkeeperapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -43,6 +44,7 @@ public class ShopkeeperSignup extends Activity implements GoogleApiClient.OnConn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_shopkeeper_signup);
         phone = (EditText)findViewById(R.id.phoneno);
         name = (EditText)findViewById(R.id.nameid);

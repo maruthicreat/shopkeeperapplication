@@ -91,7 +91,7 @@ public class MyProfileFragment extends Fragment {
         mail = (TextView)view.findViewById(R.id.mailidtext);
 
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "okok", Toast.LENGTH_SHORT).show();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
         //Toast.makeText(getContext(), email, Toast.LENGTH_SHORT).show();
@@ -109,7 +109,7 @@ public class MyProfileFragment extends Fragment {
                         use.setText(na);
                         mob.setText(ph);
                         mail.setText(email);
-                        Toast.makeText(getContext(), na, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), na, Toast.LENGTH_SHORT).show();
                     }
                 }
 

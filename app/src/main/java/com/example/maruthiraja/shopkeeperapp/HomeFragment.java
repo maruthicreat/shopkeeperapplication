@@ -1,7 +1,9 @@
 package com.example.maruthiraja.shopkeeperapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -44,6 +46,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference mdatabase;
     StaggeredGridLayoutManager gridLayoutManager;
     private List<String> listitems ;
+    private ProgressDialog progress;
 
 
 
@@ -120,7 +123,10 @@ public class HomeFragment extends Fragment {
 
     public void setrecycler(final View view)
     {
-
+        progress = new ProgressDialog(getContext());
+        progress.setTitle("Loading Items");
+        progress.setMessage("Loading...!!!");
+        progress.show();
         mdatabase = FirebaseDatabase.getInstance().getReference().child("shop_details");
         gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mdatabase.keepSynced(true);
@@ -148,6 +154,9 @@ public class HomeFragment extends Fragment {
                 viewHolder.setDescription(model.getDescription());
                 viewHolder.setImage(model.getImage());
                 viewHolder.setRating(model.getRating());
+                if (progress != null && progress.isShowing()) {
+                    progress.dismiss();
+                }
                 /*viewHolder.mview.setOnLongClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -164,7 +173,7 @@ public class HomeFragment extends Fragment {
                 viewHolder.setOnClickListener(new ItemHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
                         Intent selint = new Intent(getActivity(),SelectedItem.class);
                         Intent intent = selint.putExtra("position", getRef(position).getKey());
                         startActivity(intent);

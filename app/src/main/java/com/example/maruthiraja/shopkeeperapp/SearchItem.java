@@ -1,6 +1,7 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class SearchItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_search_item);
         toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -46,7 +48,7 @@ public class SearchItem extends AppCompatActivity {
         }
         Intent intent = getIntent();
         message = intent.getStringExtra("message");
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         setrecycler();
     }
 

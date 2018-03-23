@@ -1,6 +1,7 @@
 package com.example.maruthiraja.shopkeeperapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -57,10 +58,10 @@ public class shopkeeperfirstpage extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_shopkeeperfirstpage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //Toast.makeText(this, "start callled", Toast.LENGTH_SHORT).show();
         fragmentClass = HomeFragment.class;
 
@@ -304,10 +305,8 @@ public class shopkeeperfirstpage extends AppCompatActivity
         if (id == R.id.nav_home) {
             fragmentClass = HomeFragment.class;
             // Handle the camera action
-        } else if (id == R.id.nav_cart) {
-            fragmentClass = CartFragment.class;
-
-        } else if (id == R.id.nav_order) {
+        }
+        else if (id == R.id.nav_order) {
             fragmentClass = MyOrderFragment.class;
 
         } else if (id == R.id.nav_account) {
