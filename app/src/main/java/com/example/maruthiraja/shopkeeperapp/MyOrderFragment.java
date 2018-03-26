@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -128,17 +129,19 @@ public class MyOrderFragment extends Fragment {
         mList.setHasFixedSize(true);
         mAuth = FirebaseAuth.getInstance();
         cuser = mAuth.getCurrentUser();
+        System.out.println("firebase now login   :  "+FirebaseAuth.getInstance().getCurrentUser().getUid());
         horizontalLayoutManagaer = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mList.setLayoutManager(horizontalLayoutManagaer);
-        database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
-        myRef =  database.getReference("Purchased");
+        //database = FirebaseDatabase.getInstance("https://shopkeeperapp-7d95b.firebaseio.com/");
+        //myRef =  database.getReference("Purchased");
+        myRef = FirebaseDatabase.getInstance().getReference().child("Purchased");
         myRef.keepSynced(true);
 
         FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder>(
                 GetPurchaseData.class,
                 R.layout.orderlist,
                 purchaseHolder.class,
-                myRef.orderByChild("id").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
         ) {
             @Override
             protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, final int position) {
@@ -157,7 +160,7 @@ public class MyOrderFragment extends Fragment {
                 viewHolder.setadd(itmeaddress);
                 viewHolder.setpaymode(itmepaymod);
                 viewHolder.setImage(getContext(), model.getItemimage());
-               /* viewHolder.button.setOnClickListener(new View.OnClickListener() {
+              /*  viewHolder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         myRef.child(getRef(position).getKey()).removeValue();
@@ -172,7 +175,10 @@ public class MyOrderFragment extends Fragment {
                 viewholder.button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        myRef.child(getRef(viewholder.getAdapterPosition()).getKey()).removeValue();
+                        System.out.println(getRef(viewholder.getAdapterPosition()).getKey());
+                       // myRef.child(getRef(viewHolder.getAdapterPosition()).getKey()).removeValue();
+
+                        myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getRef(viewholder.getAdapterPosition()).getKey()).removeValue();
                     }
                 });
 
