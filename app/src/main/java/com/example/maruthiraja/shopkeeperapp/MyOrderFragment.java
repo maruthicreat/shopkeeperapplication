@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,17 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
 /**
@@ -58,6 +64,7 @@ public class MyOrderFragment extends Fragment {
     StaggeredGridLayoutManager gridLayoutManager;
     LinearLayoutManager horizontalLayoutManagaer;
     private List<String> listitems;
+    private FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder> firebaseRecyclerAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -137,7 +144,80 @@ public class MyOrderFragment extends Fragment {
         myRef = FirebaseDatabase.getInstance().getReference().child("Purchased");
         myRef.keepSynced(true);
 
-        FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder>(
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    for (DataSnapshot d : ds.getChildren())
+                    {
+                        System.out.println("shopid : " + d.child("shopid").getValue().toString());
+                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(d.child("shopid").getValue().toString()))
+                        {
+                            System.out.println("okkok");
+                            System.out.println("ds key : "+ds.getKey());
+                            System.out.println("d key : "+d.getKey());
+
+                            firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder>(
+                                    GetPurchaseData.class,
+                                    R.layout.orderlist,
+                                    purchaseHolder.class,
+                                    myRef.child(ds.getKey())
+                            ) {
+                                @Override
+                                protected void populateViewHolder(purchaseHolder viewHolder, GetPurchaseData model, final int position) {
+                                    String itemid = model.getItemid();
+                                    String itemname = model.getItemname();
+                                    String itemtime = model.getPurchaseTime();
+                                    String itmerating = model.getItemrating();
+                                    String itmepaymod = model.getPaymentMode();
+                                    String itmeaddress = model.getOrderat();
+                                    System.out.println("lists : "+itemid+itemname+itemtime+itmerating+itmepaymod+itmeaddress);
+                                    viewHolder.setTitleName(itemname);
+                                    viewHolder.setTiming(itemtime);
+                                    viewHolder.setPrice(model.getPrice());
+                                    viewHolder.setadd(itmeaddress);
+                                    viewHolder.setpaymode(itmepaymod);
+                                    viewHolder.setImage(getContext(), model.getItemimage());
+                                }
+
+                                @Override
+                                public purchaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                                    final purchaseHolder viewholder = super.onCreateViewHolder(parent, viewType);
+                                    viewholder.button.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            System.out.println(getRef(viewholder.getAdapterPosition()).getKey());
+                                            // myRef.child(getRef(viewHolder.getAdapterPosition()).getKey()).removeValue();
+
+                                            myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getRef(viewholder.getAdapterPosition()).getKey()).removeValue();
+                                        }
+                                    });
+
+                                    return viewholder;
+                                }
+                            };
+                            mList.setAdapter(firebaseRecyclerAdapter);
+                        }
+                    }
+                    System.out.println("the child count is  : "+ds.getChildrenCount());
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+
+        });
+
+
+
+       /*FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<GetPurchaseData, purchaseHolder>(
                 GetPurchaseData.class,
                 R.layout.orderlist,
                 purchaseHolder.class,
@@ -160,13 +240,6 @@ public class MyOrderFragment extends Fragment {
                 viewHolder.setadd(itmeaddress);
                 viewHolder.setpaymode(itmepaymod);
                 viewHolder.setImage(getContext(), model.getItemimage());
-              /*  viewHolder.button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        myRef.child(getRef(position).getKey()).removeValue();
-                        Toast.makeText(getContext(), "Order Successfully Canceled ..!!!", Toast.LENGTH_SHORT).show();
-                    }
-                });*/
             }
 
             @Override
@@ -184,8 +257,8 @@ public class MyOrderFragment extends Fragment {
 
                 return viewholder;
             }
-        };
-        mList.setAdapter(firebaseRecyclerAdapter);
+        };*/
+
     }
 
     public static class purchaseHolder extends RecyclerView.ViewHolder {
